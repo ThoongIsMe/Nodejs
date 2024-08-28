@@ -1,3 +1,15 @@
-/**
- * "A bit of fragrance clings to the hand that gives flowers!"
- */
+import express from 'express'
+import { StatusCodes } from 'http-status-codes'
+import { exampleValidation } from '~/validations/exampleValidation'
+import { exampleController } from '~/controllers/exampleController'
+
+
+const Router = express.Router()
+
+Router.route('/')
+    .get((req, res) => {
+        res.status(StatusCodes.OK).json({ message: 'API V1 get' })
+    })
+    .post(exampleValidation.createNew, exampleController.createNew)
+
+export const exampleRoutes = Router
