@@ -2,9 +2,10 @@
 /* eslint-disable no-useless-catch */
 import { boardModel } from '~/models/boardModel'
 import { slugify } from '~/utils/formatter'
-
+import { StatusCodes } from 'http-status-codes'
+import ApiError from '~/utils/ApiError'
 //trong service phai cos return
-const creactNew = async(reqbody) => {
+const creacteNew = async(reqbody) => {
     try {
         const newBoard = {
                 ...reqbody,
@@ -20,7 +21,18 @@ const creactNew = async(reqbody) => {
     } catch (error) {
         throw error
     }
+}
+
+const getDetails = async(boardId) => {
+    try {
+        const board = await boardModel.getDetails(boardId)
+        if (!board) { throw new ApiError(StatusCodes.NOT_FOUND, 'not found') }
+        return board
+
+    } catch (error) {
+        throw error
+    }
 
 }
 
-export const boardService = { creactNew }
+export const boardService = { creacteNew, getDetails }

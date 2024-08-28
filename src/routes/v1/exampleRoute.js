@@ -12,4 +12,8 @@ Router.route('/')
     })
     .post(exampleValidation.createNew, exampleController.createNew)
 
+Router.route('/:id')
+    .get(exampleController.getDetails)
+    // .pull() //update
+
 export const exampleRoutes = Router

@@ -48,9 +48,22 @@ const findOneByID = async(id) => {
     }
 }
 
+//query tong hop (aggregate) lay toan bo col va card o board (join table)
+const getDetails = async(id) => {
+    try {
+        const result = await GET_DB().collection(BOARD_COLLECTION_NAME).findOne({
+            _id: new ObjectId(id)
+        })
+        return result
+    } catch (error) {
+        throw new Error(`Error in findOneByID: ${error.message}`)
+    }
+}
+
 export const boardModel = {
     BOARD_COLLECTION_NAME,
     BOARD_COLLECTION_SCHEMA,
     createNew,
-    findOneByID
+    findOneByID,
+    getDetails
 }
